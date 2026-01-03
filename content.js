@@ -111,6 +111,32 @@ function observeRollbox() {
 }
 
 
+// {
+//     "roller": "Giant Rat",
+//     "total": "18",
+//     "breakdown": "[12] + [4] + 2",
+//     "title": "Giant Rat — Bite: 1d20 + 1d4 + 2",
+//     "intent": {
+//         "expression": "1d20+4",
+//         "context": {
+//             "type": "hit"
+//         },
+//         "time": 1767437154008
+//     }
+// }
+
+// {
+//     "roller": "Giant Rat",
+//     "total": "5",
+//     "breakdown": "[3] + 2",
+//     "title": "Giant Rat — Bite: 1d4 + 2",
+//     "intent": {
+//         "expression": "1d4 + 2",
+//         "time": 1767437555853
+//     }
+// }
+
+
 // ----------------------------
 // Transform roll into a Discord payload
 // ----------------------------
@@ -121,7 +147,11 @@ function buildDiscordPayload(result) {
         embeds: [
             {
                 title: intent?.label || "Roll",
-                description: `**Roller:** ${roller}\n**Expression:** ${intent?.expression || "N/A"}\n**Result:** ${total}\n**Breakdown:** ${breakdown}`,
+                description: `
+                **Roller:** ${roller}\n
+                **Expression:** ${intent?.expression || "N/A"}\n
+                **Breakdown:** ${breakdown}
+                **Result:** ${total}\n`,
                 color: 3447003,
                 timestamp: new Date().toISOString()
             }
@@ -134,7 +164,7 @@ function buildDiscordPayload(result) {
 // Send the payload to a Discord webhook
 // ----------------------------
 function sendToDiscord(result) {
-    const webhookUrl = "https://discord.com/api/webhooks/1445984910236979273/dxdhp8X2CU3qDR2k0NpY7Hg2nCop1cH-7dDny7J2sFlGCv0Hti6ZLBBM0Isq43JdTec2";
+    const webhookUrl = "https://discord.com/api/webhooks/1456964177058074802/54pVVuO7y_UOvad1i4p6Loidu8tuk9jnoc9I32B9FXVefieBvyEFH5cvuzq39DAXOsWk";
 
     const payload = buildDiscordPayload(result);
 

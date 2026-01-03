@@ -1,5 +1,14 @@
 console.log("[5e Roll Capture] content script loaded");
 
+window.__pendingRolls = window.__pendingRolls || [];
+window.__pendingRolls.push({
+    label: packed.name,
+    expression: packed.toRoll,
+    context: packed.context,
+    time: Date.now()
+});
+
+
 document.addEventListener("click", (event) => {
     const el = event.target.closest(".roller.render-roller");
     if (!el) return;
@@ -74,6 +83,10 @@ function handleRollResult(node) {
 
     const intent = window.__pendingRolls?.shift();
 
+    if (!intent) {
+        console.warn("[5e Roll Capture] Roll without intent");
+    }
+
     const result = {
         roller,
         total,
@@ -83,9 +96,4 @@ function handleRollResult(node) {
     };
 
     console.log("[5e Roll Result]", result);
-}
-
-
-if (!intent) {
-    console.warn("[5e Roll Capture] Roll without intent");
 }

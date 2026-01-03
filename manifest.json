@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "5e.tools Roll Extension",
+  "description": "Captures dice rolls from 5e.tools and logs them.",
+  "version": "0.1.0",
+  "content_scripts": [
+    {
+      "matches": ["https://5e.tools/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -121,6 +121,7 @@ function buildDiscordPayload(result) {
     const { roller, total, breakdown, title } = result;
     return {
         username: roller,
+        avatar_url: avatarUrl,
         embeds: [
             {
                 title: title || "Roll",
@@ -128,9 +129,6 @@ function buildDiscordPayload(result) {
                 **Breakdown:** ${breakdown}\n
                 **Result:** ${total}\n`,
                 color: 3447003,
-                thumbnail: {
-                    url: avatarUrl // token image
-                }
             }
         ]
     };

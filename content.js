@@ -8,7 +8,7 @@ window.__pendingRolls = window.__pendingRolls || [];
 // ----------------------------
 // Click listener — capture roll intent
 // ----------------------------
-document.addEventListener("click", (event) => {
+document.addEventListener("mousedown", (event) => {
     const el = event.target.closest(".roller.render-roller");
     if (!el) return;
 

@@ -1,13 +1,7 @@
 console.log("[5e Roll Capture] content script loaded");
 
+// Initialize queue
 window.__pendingRolls = window.__pendingRolls || [];
-window.__pendingRolls.push({
-    label: packed.name,
-    expression: packed.toRoll,
-    context: packed.context,
-    time: Date.now()
-});
-
 
 document.addEventListener("click", (event) => {
     const el = event.target.closest(".roller.render-roller");
@@ -27,6 +21,15 @@ document.addEventListener("click", (event) => {
         display: el.textContent.trim()
     });
 
+    // Push into the pending queue here
+    window.__pendingRolls.push({
+        label: packed.name,
+        expression: packed.toRoll,
+        context: packed.context,
+        time: Date.now()
+    });
+
+    // Optional: store last click context
     window.__lastRollContext = {
         label: packed.name,
         expression: packed.toRoll,

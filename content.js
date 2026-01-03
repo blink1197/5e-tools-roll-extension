@@ -160,6 +160,7 @@ function buildDiscordPayload(result) {
                 title: title || "Roll",
                 description: `
                 **Roller:** ${roller}\n
+                **Breakdown:** ${breakdown}\n
                 **Result:** ${total}\n`,
                 color: 3447003,
                 timestamp: new Date().toISOString()

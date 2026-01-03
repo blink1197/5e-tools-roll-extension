@@ -138,19 +138,24 @@ function buildDiscordPayload(result) {
 // Send the payload to a Discord webhook
 // ----------------------------
 function sendToDiscord(result) {
-    const webhookUrl = "https://discord.com/api/webhooks/1456964177058074802/54pVVuO7y_UOvad1i4p6Loidu8tuk9jnoc9I32B9FXVefieBvyEFH5cvuzq39DAXOsWk";
+    chrome.storage.sync.get("discordWebhook", ({ discordWebhook }) => {
+        if (!discordWebhook) {
+            console.warn("[5e Roll Capture] No Discord webhook configured.");
+            return;
+        }
 
-    const payload = buildDiscordPayload(result);
+        const payload = buildDiscordPayload(result);
 
-    fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    })
-        .then(res => {
-            if (!res.ok) console.error("Discord webhook failed:", res.statusText);
+        fetch(discordWebhook, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         })
-        .catch(err => console.error("Discord webhook error:", err));
+            .then(res => {
+                if (!res.ok) console.error("Discord webhook failed:", res.statusText);
+            })
+            .catch(err => console.error("Discord webhook error:", err));
+    });
 }
 
 

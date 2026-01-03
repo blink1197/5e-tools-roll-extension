@@ -57,6 +57,27 @@
             background-color: #4a5890;
         }
 
+        #testBtn {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #43b581;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        #testBtn:hover {
+            background-color: #369970;
+        }
+
+        #testBtn:active {
+            background-color: #2d7a5c;
+        }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -69,6 +90,7 @@
         <h2>5e Roll Capture - Discord Webhook</h2>
         <input id="webhook" type="text" placeholder="Enter Discord Webhook URL">
         <button id="saveBtn">Save</button>
+        <button id="testBtn">Test Webhook</button>
     </div>
 
     <script src="options.js"></script>

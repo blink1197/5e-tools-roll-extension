@@ -110,63 +110,31 @@ function observeRollbox() {
     bodyObserver.observe(document.body, { childList: true, subtree: true });
 }
 
-
-// {
-//     "roller": "Giant Rat",
-//     "total": "18",
-//     "breakdown": "[12] + [4] + 2",
-//     "title": "Giant Rat — Bite: 1d20 + 1d4 + 2",
-//     "intent": {
-//         "expression": "1d20+4",
-//         "context": {
-//             "type": "hit"
-//         },
-//         "time": 1767437154008
-//     }
-// }
-
-// {
-//     "roller": "Giant Rat",
-//     "total": "5",
-//     "breakdown": "[3] + 2",
-//     "title": "Giant Rat — Bite: 1d4 + 2",
-//     "intent": {
-//         "expression": "1d4 + 2",
-//         "time": 1767437555853
-//     }
-// }
-
-
-// {
-//     title: title || "Roll",
-//     description: `
-//     **Roller:** ${roller}\n
-//     **Expression:** ${intent?.expression || "N/A"}\n
-//     **Breakdown:** ${breakdown}
-//     **Result:** ${total}\n`,
-//     color: 3447003,
-//     timestamp: new Date().toISOString()
-// }
-
 // ----------------------------
 // Transform roll into a Discord payload
 // ----------------------------
 function buildDiscordPayload(result) {
+
+    const tokenImg = document.querySelector("#float-token img.stats__token")?.src;
+    const avatarUrl = tokenImg ? new URL(tokenImg, window.location.origin).href : null;
+
     const { roller, total, breakdown, title } = result;
     return {
-        username: "5e Roll Capture",
+        username: roller,
         embeds: [
             {
                 title: title || "Roll",
                 description: `
                 **Breakdown:** ${breakdown}\n
                 **Result:** ${total}\n`,
-                color: 3447003
+                color: 3447003,
+                thumbnail: {
+                    url: avatarUrl // token image
+                }
             }
         ]
     };
 }
-
 
 // ----------------------------
 // Send the payload to a Discord webhook

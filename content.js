@@ -137,20 +137,29 @@ function observeRollbox() {
 // }
 
 
+// {
+//     title: title || "Roll",
+//     description: `
+//     **Roller:** ${roller}\n
+//     **Expression:** ${intent?.expression || "N/A"}\n
+//     **Breakdown:** ${breakdown}
+//     **Result:** ${total}\n`,
+//     color: 3447003,
+//     timestamp: new Date().toISOString()
+// }
+
 // ----------------------------
 // Transform roll into a Discord payload
 // ----------------------------
 function buildDiscordPayload(result) {
-    const { roller, total, breakdown, intent } = result;
+    const { roller, total, breakdown, intent, title } = result;
     return {
         username: "5e Roll Capture",
         embeds: [
             {
-                title: intent?.label || "Roll",
+                title: title || "Roll",
                 description: `
                 **Roller:** ${roller}\n
-                **Expression:** ${intent?.expression || "N/A"}\n
-                **Breakdown:** ${breakdown}
                 **Result:** ${total}\n`,
                 color: 3447003,
                 timestamp: new Date().toISOString()

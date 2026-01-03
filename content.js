@@ -152,18 +152,16 @@ function observeRollbox() {
 // Transform roll into a Discord payload
 // ----------------------------
 function buildDiscordPayload(result) {
-    const { roller, total, breakdown, intent, title } = result;
+    const { roller, total, breakdown, title } = result;
     return {
         username: "5e Roll Capture",
         embeds: [
             {
                 title: title || "Roll",
                 description: `
-                **Roller:** ${roller}\n
                 **Breakdown:** ${breakdown}\n
                 **Result:** ${total}\n`,
-                color: 3447003,
-                timestamp: new Date().toISOString()
+                color: 3447003
             }
         ]
     };

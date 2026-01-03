@@ -1,4 +1,4 @@
-# 5e Roll Capture - Discord Webhook
+# 5e.tools Roll Capture - Discord Webhook
 
 Capture dice rolls from [5e.tools](https://5e.tools/) and automatically send them to a Discord channel via webhook.
 

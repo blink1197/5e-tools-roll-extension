@@ -1,5 +1,77 @@
-<h2>5e Roll Capture - Discord Webhook</h2>
-<input id="webhook" type="text" placeholder="Enter Discord Webhook URL" style="width: 100%;">
-<button id="saveBtn">Save</button>
+<!DOCTYPE html>
+<html lang="en">
 
-<script src="options.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>5e Roll Capture - Discord Webhook</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #7289da;
+            /* Discord-themed blue */
+            text-align: center;
+        }
+
+        #webhook {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: #2c2f33;
+            color: #fff;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        #webhook::placeholder {
+            color: #999;
+        }
+
+        #saveBtn {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #7289da;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #saveBtn:hover {
+            background-color: #5b6eae;
+        }
+
+        #saveBtn:active {
+            background-color: #4a5890;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>5e Roll Capture - Discord Webhook</h2>
+        <input id="webhook" type="text" placeholder="Enter Discord Webhook URL">
+        <button id="saveBtn">Save</button>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

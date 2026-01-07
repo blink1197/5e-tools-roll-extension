@@ -45,8 +45,8 @@ document.addEventListener("mousedown", (event) => {
 // ----------------------------
 function handleRollResult(node) {
     const total = node.querySelector(".roll")?.textContent?.trim();
-    const rollMode = getRollMode(title);
     const title = node.getAttribute("title");
+    const rollMode = getRollMode(title);
 
     const allRollsEl = node.querySelector(".all-rolls");
 

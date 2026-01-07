@@ -45,6 +45,7 @@ document.addEventListener("mousedown", (event) => {
 // ----------------------------
 function handleRollResult(node) {
     const total = node.querySelector(".roll")?.textContent?.trim();
+    const rollMode = getRollMode(title);
     const title = node.getAttribute("title");
 
     const allRollsEl = node.querySelector(".all-rolls");
@@ -83,12 +84,22 @@ function handleRollResult(node) {
         total,
         breakdown,
         title,
+        rollMode,
         intent
     };
 
     console.log("[5e Roll Result]", result);
 
     sendToDiscord(result);
+}
+
+// ----------------------------
+// Parse title and check for roll mode (Advantage or Disadvantage)
+// ----------------------------
+function getRollMode(title = "") {
+    if (title.includes("dl1")) return "advantage";
+    if (title.includes("dh1")) return "disadvantage";
+    return "normal";
 }
 
 
@@ -135,13 +146,21 @@ function buildDiscordPayload(result) {
     const tokenImg = document.querySelector("#float-token img.stats__token")?.src;
     const avatarUrl = tokenImg ? new URL(tokenImg, window.location.origin).href : null;
 
-    const { roller, total, breakdown, title } = result;
+    const { roller, total, breakdown, title, rollMode } = result;
+
+    const rollLabel =
+        rollMode === "advantage"
+            ? " (Advantage)"
+            : rollMode === "disadvantage"
+                ? " (Disadvantage)"
+                : "";
+
     return {
         username: roller,
         avatar_url: avatarUrl,
         embeds: [
             {
-                title: title || "Roll",
+                title: `${title || "Roll"}${rollLabel}`,
                 description: `
                 **Breakdown:** ${breakdown}\n
                 **Result:** ${total}\n`,

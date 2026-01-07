@@ -107,35 +107,48 @@ function getRollMode(title = "") {
 // Observe rollbox and its children
 // ----------------------------
 function observeRollbox() {
-    // Observe the document for the rollbox to appear
-    const bodyObserver = new MutationObserver(() => {
-        const rollWrp = document.querySelector(".out-roll-wrp");
-        if (rollWrp) {
-            console.log("[5e Roll Capture] Rollbox ready");
+    const observedRollWrps = new WeakSet();
 
-            // Disconnect body observer — we found the rollbox
-            bodyObserver.disconnect();
+    function observeRollWrp(rollWrp) {
+        if (observedRollWrps.has(rollWrp)) return;
+        observedRollWrps.add(rollWrp);
 
-            // Handle any existing rolls already in the DOM
-            rollWrp.querySelectorAll(".out-roll-item").forEach(handleRollResult);
+        console.log(
+            "[5e Roll Capture] Observing rollbox:",
+            rollWrp.dataset.rollboxLastRolledByName
+        );
 
-            // Observe new rolls as they appear
-            const observer = new MutationObserver((mutations) => {
-                for (const m of mutations) {
-                    for (const node of m.addedNodes) {
-                        if (node.nodeType !== 1) continue;
-                        if (!node.classList.contains("out-roll-item")) continue;
+        // Handle existing rolls
+        rollWrp.querySelectorAll(".out-roll-item").forEach(handleRollResult);
 
+        // Observe new rolls
+        const observer = new MutationObserver((mutations) => {
+            for (const m of mutations) {
+                for (const node of m.addedNodes) {
+                    if (
+                        node.nodeType === 1 &&
+                        node.classList.contains("out-roll-item")
+                    ) {
                         handleRollResult(node);
                     }
                 }
-            });
+            }
+        });
 
-            observer.observe(rollWrp, { childList: true });
-        }
+        observer.observe(rollWrp, { childList: true });
+    }
+
+    // Observe the whole document for new roll boxes
+    const bodyObserver = new MutationObserver(() => {
+        document
+            .querySelectorAll(".out-roll-wrp")
+            .forEach(observeRollWrp);
     });
 
-    bodyObserver.observe(document.body, { childList: true, subtree: true });
+    bodyObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 // ----------------------------

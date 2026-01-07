@@ -155,18 +155,27 @@ function observeRollbox() {
 // Transform roll into a Discord payload
 // ----------------------------
 function buildDiscordPayload(result) {
+    const tokenImg =
+        document.querySelector("#float-token img.stats__token")?.src;
 
-    const tokenImg = document.querySelector("#float-token img.stats__token")?.src;
-    const avatarUrl = tokenImg ? new URL(tokenImg, window.location.origin).href : null;
+    const avatarUrl = tokenImg
+        ? tokenImg.startsWith("http")
+            ? tokenImg
+            : new URL(tokenImg, location.origin).href
+        : null;
 
     const { roller, total, breakdown, title, rollMode } = result;
 
-    const rollLabel =
-        rollMode === "advantage"
-            ? " (Advantage)"
-            : rollMode === "disadvantage"
-                ? " (Disadvantage)"
-                : "";
+    const rollModeLabels = {
+        advantage: " (Advantage)",
+        disadvantage: " (Disadvantage)",
+    };
+
+    const rollLabel = rollModeLabels[rollMode] || "";
+
+    const breakdownText = breakdown?.trim()
+        ? breakdown
+        : "_No breakdown available_";
 
     return {
         username: roller,
@@ -174,14 +183,15 @@ function buildDiscordPayload(result) {
         embeds: [
             {
                 title: `${title || "Roll"}${rollLabel}`,
-                description: `
-                **Breakdown:** ${breakdown}\n
-                **Result:** ${total}\n`,
+                description:
+                    `Breakdown: ${breakdownText}\n` +
+                    `**Result:** ${total}`,
                 color: 3447003,
             }
         ]
     };
 }
+
 
 // ----------------------------
 // Send the payload to a Discord webhook

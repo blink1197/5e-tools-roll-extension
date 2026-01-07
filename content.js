@@ -45,15 +45,33 @@ document.addEventListener("mousedown", (event) => {
 // ----------------------------
 function handleRollResult(node) {
     const total = node.querySelector(".roll")?.textContent?.trim();
-    const breakdown = node.querySelector(".all-rolls")?.textContent?.trim();
     const title = node.getAttribute("title");
+
+    const allRollsEl = node.querySelector(".all-rolls");
+
+    let breakdown = "";
+
+    if (allRollsEl) {
+        breakdown = Array.from(allRollsEl.childNodes)
+            .map(n => {
+                if (
+                    n.nodeType === Node.ELEMENT_NODE &&
+                    n.classList.contains("rll__dropped")
+                ) {
+                    return `~~${n.textContent.trim()}~~`;
+                }
+
+                return n.textContent;
+            })
+            .join("")
+            .trim();
+    }
 
     const rollbox = node.closest(".out-roll-wrp");
     const roller =
         rollbox?.dataset?.rollboxLastRolledByName ||
         document.querySelector(".out-roll-id")?.textContent?.trim();
 
-    // Grab the oldest pending intent
     const intent = window.__pendingRolls?.shift();
 
     if (!intent) {
@@ -68,12 +86,11 @@ function handleRollResult(node) {
         intent
     };
 
-
     console.log("[5e Roll Result]", result);
 
-    // Send roll to discord webhook
     sendToDiscord(result);
 }
+
 
 // ----------------------------
 // Observe rollbox and its children

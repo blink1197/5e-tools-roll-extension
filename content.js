@@ -175,7 +175,42 @@ function buildDiscordPayload(result) {
 
     const breakdownText = breakdown?.trim()
         ? breakdown
-        : "_No breakdown available_";
+        : "No breakdown available";
+
+    const digitMap = {
+        "0": ":zero:",
+        "1": ":one:",
+        "2": ":two:",
+        "3": ":three:",
+        "4": ":four:",
+        "5": ":five:",
+        "6": ":six:",
+        "7": ":seven:",
+        "8": ":eight:",
+        "9": ":nine:",
+        "-": "➖"
+    };
+
+    const totalEmoji = String(total)
+        .split("")
+        .map(d => digitMap[d] || d)
+        .join("");
+
+    // ignore dropped dice
+    const cleanBreakdown = breakdownText.replace(/~~.*?~~/g, "");
+
+    let rollColorEmoji = "";
+    let embedColor = 3447003; // default blue
+
+    // detect [20] or (20)
+    if (/[\[(]20[\])]/.test(cleanBreakdown)) {
+        rollColorEmoji = "🟢";
+        embedColor = 5763719;
+    }
+    else if (/[\[(]1[\])]/.test(cleanBreakdown)) {
+        rollColorEmoji = "🔴";
+        embedColor = 15548997;
+    }
 
     return {
         username: roller,
@@ -184,15 +219,13 @@ function buildDiscordPayload(result) {
             {
                 title: `${title || "Roll"}${rollLabel}`,
                 description:
-                    `Breakdown: ${breakdownText}\n` +
-                    `**Result:** ${total}`,
-                color: 3447003,
+                    `${totalEmoji} ${rollColorEmoji}\n\n` +
+                    `||:game_die: ${result.intent?.expression || ""} :arrow_right: ${breakdownText}||`,
+                color: embedColor
             }
         ]
     };
 }
-
-
 // ----------------------------
 // Send the payload to a Discord webhook
 // ----------------------------

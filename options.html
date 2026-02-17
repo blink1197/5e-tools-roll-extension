@@ -17,19 +17,16 @@
             font-size: 1.6rem;
             margin-bottom: 20px;
             color: #7289da;
-            /* Discord-themed blue */
             text-align: center;
         }
 
         #webhook {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px;
             border: 1px solid #555;
             border-radius: 6px;
-            font-size: 1rem;
-            background-color: #2c2f33;
+            background: #2c2f33;
             color: #fff;
-            box-sizing: border-box;
             margin-bottom: 15px;
         }
 
@@ -37,50 +34,75 @@
             color: #999;
         }
 
-        #saveBtn {
+        button {
             width: 100%;
-            padding: 10px 12px;
-            background-color: #7289da;
+            padding: 10px;
             border: none;
             border-radius: 6px;
-            color: #fff;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        #saveBtn {
+            background: #7289da;
+            color: #fff;
         }
 
         #saveBtn:hover {
-            background-color: #5b6eae;
-        }
-
-        #saveBtn:active {
-            background-color: #4a5890;
+            background: #5b6eae;
         }
 
         #testBtn {
-            width: 100%;
-            padding: 10px 12px;
-            background-color: #43b581;
-            border: none;
-            border-radius: 6px;
+            background: #43b581;
             color: #fff;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s ease;
         }
 
         #testBtn:hover {
-            background-color: #369970;
-        }
-
-        #testBtn:active {
-            background-color: #2d7a5c;
+            background: #369970;
         }
 
         .container {
             max-width: 500px;
             margin: 0 auto;
+        }
+
+        #rollInput,
+        #rollTitle {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #2c2f33;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        #customButtons button {
+            flex: 1;
+            margin-right: 5px;
+        }
+
+        #customButtons button:last-child {
+            margin-right: 0;
+        }
+
+        hr {
+            border-color: #444;
+            margin: 20px 0;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #7289da;
+        }
+
+        .flex {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -91,6 +113,17 @@
         <input id="webhook" type="text" placeholder="Enter Discord Webhook URL">
         <button id="saveBtn">Save</button>
         <button id="testBtn">Test Webhook</button>
+
+        <hr>
+
+        <h3>Custom Dice Roller</h3>
+        <input id="rollTitle" type="text" placeholder="Optional title (default: Custom Roll)">
+        <input id="rollInput" type="text" placeholder="Enter roll (e.g. 1d20+3 or 5d8-2)">
+        <div class="flex" id="customButtons">
+            <button id="normalBtn" style="background:#7289da;">Normal</button>
+            <button id="advBtn" style="background:#faa61a;">Advantage</button>
+            <button id="disBtn" style="background:#f04747;">Disadvantage</button>
+        </div>
     </div>
 
     <script src="options.js"></script>

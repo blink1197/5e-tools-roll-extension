@@ -69,7 +69,7 @@
         }
 
         #rollInput,
-        #rollTitle {
+        #titleInput {
             width: 100%;
             padding: 10px;
             border-radius: 6px;
@@ -117,7 +117,7 @@
         <hr>
 
         <h3>Custom Dice Roller</h3>
-        <input id="rollTitle" type="text" placeholder="Optional title (default: Custom Roll)">
+        <input id="titleInput" type="text" placeholder="Optional title (default: Custom Roll)">
         <input id="rollInput" type="text" placeholder="Enter roll (e.g. 1d20+3 or 5d8-2)">
         <div class="flex" id="customButtons">
             <button id="normalBtn" style="background:#7289da;">Normal</button>
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <script src="options.js"></script>
+    <script type="module" src="options.js"></script>
 </body>
 
 </html>

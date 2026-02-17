@@ -11,5 +11,9 @@
     }
   ],
   "options_page": "options.html",
-  "permissions": ["storage"]
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Discord Dice Roller"
+  }
 }

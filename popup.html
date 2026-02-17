@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial;
+            width: 280px;
+            padding: 12px;
+            background: #1e1f22;
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            margin: 6px 0;
+            padding: 6px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 6px;
+            background: #5865F2;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #4752C4;
+        }
+
+        .row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .row button {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>Discord Webhook</h3>
+    <input id="webhook" placeholder="Paste webhook URL">
+    <button id="saveBtn">Save Webhook</button>
+    <button id="testBtn">Test Webhook</button>
+
+    <hr>
+
+    <h3>Dice Roller</h3>
+    <input id="titleInput" placeholder="Optional title">
+    <input id="rollInput" placeholder="Example: 1d20+5">
+
+    <div class="row">
+        <button id="normalBtn">Roll</button>
+        <button id="advBtn">ADV</button>
+        <button id="disBtn">DIS</button>
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+
+</html>
